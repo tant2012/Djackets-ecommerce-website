@@ -39,7 +39,7 @@ let quantity = ref(1);
 let product = ref({});
 
 const getProducts = async () => {
-  store.setIsLoading(store.isLoading, true);
+  store.setIsLoading(true);
 
   const category_slug = router.currentRoute.value.params.category_slug;
   const product_slug = router.currentRoute.value.params.product_slug;
@@ -48,11 +48,13 @@ const getProducts = async () => {
     .get(`/v1/products/${category_slug}/${product_slug}`)
     .then((response) => {
       product.value = response.data;
+
+      document.title = product.value.name + ' | Djackets'
     })
     .catch((error) => {
       console.log(error);
     });
-  store.setIsLoading(store.isLoading, false);
+  store.setIsLoading(false);
 };
 
 const addToCart = () => {
@@ -63,7 +65,7 @@ const addToCart = () => {
     product: product.value,
     quantity: quantity.value,
   };
-  store.addToCart(store.cart, item);
+  store.addToCart(item);
 
   toast({
     message: "The product was added to the cart",

@@ -18,19 +18,49 @@
           <span aria-hidden="true"></span>
         </a>
       </div>
+
       <div
         class="navbar-menu"
         id="navbar-menu"
         :class="{ 'is-active': showMobileMenu }"
       >
+        <div class="navbar-start">
+          <div class="navbar-item">
+            <form method="get" action="/search">
+              <div class="field has-addons">
+                <div class="control">
+                  <input
+                    type="text"
+                    class="input"
+                    placeholder="What are you looking for?"
+                    name="query"
+                  />
+                </div>
+
+                <div class="control">
+                  <button class="button is-success">
+                    <span class="icon"> <i class="fas fa-search"></i></span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
         <div class="navbar-end">
           <router-link to="/summer" class="navbar-item">Summer</router-link>
           <router-link to="/winter" class="navbar-item">Winter</router-link>
 
           <div class="navbar-item">
             <div class="buttons">
-              <router-link to="/log-in" class="button is-light"
-                >Login</router-link
+              <template v-if="store.isAuthenticated">
+                <router-link to="/my-account" class="button is-light"
+                  >My Account</router-link
+                ></template
+              >
+              <template v-else>
+                <router-link to="/log-in" class="button is-light"
+                  >Login</router-link
+                ></template
               >
 
               <router-link to="/cart" class="button is-success">
@@ -61,14 +91,21 @@
 </template>
 
 <script setup>
+import http from "@/utils/http";
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "./store";
 
 const showMobileMenu = ref(false);
 const store = useStore();
 let cart = ref({ items: [] });
+const token = store.token;
 
-store.initializeStore(store);
+store.initializeStore(store.cart);
+if (token) {
+  http.defaults.headers.common["Authorization"] = "Token " + token;
+} else {
+  http.defaults.headers.common["Authorization"] = "";
+}
 
 const cartTotalLength = computed(() => {
   let totalLength = 0;
@@ -115,6 +152,7 @@ onMounted(() => {
   overflow: hidden;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
+
   &.is-loading {
     height: 80px;
   }

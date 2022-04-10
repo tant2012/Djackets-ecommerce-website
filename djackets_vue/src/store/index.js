@@ -13,15 +13,23 @@ export const useStore = defineStore("djacketsStore", {
   getters: {},
 
   actions: {
-    initializeStore(state) {
+    initializeStore() {
       if (localStorage.getItem("cart")) {
-        state = JSON.parse(localStorage.getItem("cart"));
+        this.cart = JSON.parse(localStorage.getItem("cart"));
       } else {
-        localStorage.setItem("cart", JSON.stringify(state));
+        localStorage.setItem("cart", JSON.stringify(this.cart));
+      }
+
+      if (localStorage.getItem("token")) {
+        this.token = localStorage.getItem("token");
+        this.isAuthenticated = true;
+      } else {
+        this.token = "";
+        this.isAuthenticated = false;
       }
     },
-    addToCart(state, item) {
-      const exists = state.items.filter(
+    addToCart(item) {
+      let exists = this.cart.items.filter(
         (i) => i.product.id === item.product.id
       );
 
@@ -29,13 +37,26 @@ export const useStore = defineStore("djacketsStore", {
         exists[0].quantity =
           parseInt(exists[0].quantity) + parseInt(item.quantity);
       } else {
-        state.items.push(item);
+        this.cart.items.push(item);
       }
-      localStorage.setItem("cart", JSON.stringify(state));
+      localStorage.setItem("cart", JSON.stringify(this.cart));
     },
 
-    setIsLoading(state, status) {
-      state.isLoading = status;
+    setIsLoading(status) {
+      this.isLoading = status;
+    },
+    setToken(token) {
+      this.token = token;
+      this.isAuthenticated = true;
+    },
+    removeToken() {
+      this.token = "";
+      this.isAuthenticated = false;
+    },
+    clearCart() {
+      this.cart = { items: [] };
+
+      localStorage.setItem("cart", JSON.stringify(this.cart));
     },
   },
 });
