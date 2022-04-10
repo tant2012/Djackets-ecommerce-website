@@ -1,8 +1,6 @@
 import { defineStore } from "pinia";
 
-export const useStore = defineStore( "djacketsStore", {
-
-
+export const useStore = defineStore("djacketsStore", {
   state: () => ({
     cart: {
       items: [],
@@ -12,18 +10,18 @@ export const useStore = defineStore( "djacketsStore", {
     isLoading: false,
   }),
 
-  getters:{},
+  getters: {},
 
-  actions:{
+  actions: {
     initializeStore(state) {
       if (localStorage.getItem("cart")) {
-        state.cart = JSON.parse(localStorage.getItem("cart"));
+        state = JSON.parse(localStorage.getItem("cart"));
       } else {
-        localStorage.setItem("cart", JSON.stringify(state.cart));
+        localStorage.setItem("cart", JSON.stringify(state));
       }
     },
     addToCart(state, item) {
-      const exists = state.cart.items.filter(
+      const exists = state.items.filter(
         (i) => i.product.id === item.product.id
       );
 
@@ -31,9 +29,13 @@ export const useStore = defineStore( "djacketsStore", {
         exists[0].quantity =
           parseInt(exists[0].quantity) + parseInt(item.quantity);
       } else {
-        state.cart.items.push(item);
+        state.items.push(item);
       }
-      localStorage.setItem("cart", JSON.stringify(state.cart));
+      localStorage.setItem("cart", JSON.stringify(state));
+    },
+
+    setIsLoading(state, status) {
+      state.isLoading = status;
     },
   },
 });

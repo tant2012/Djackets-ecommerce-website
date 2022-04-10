@@ -32,16 +32,19 @@ import { ref, onMounted } from "vue";
 import http from "../utils/http";
 import router from "@/router";
 import { useStore } from "../store";
+import { toast } from "bulma-toast";
 
 const store = useStore();
 let quantity = ref(1);
 let product = ref({});
 
-const getProducts = () => {
+const getProducts = async () => {
+  store.setIsLoading(store.isLoading, true);
+
   const category_slug = router.currentRoute.value.params.category_slug;
   const product_slug = router.currentRoute.value.params.product_slug;
 
-  http
+  await http
     .get(`/v1/products/${category_slug}/${product_slug}`)
     .then((response) => {
       product.value = response.data;
@@ -49,6 +52,7 @@ const getProducts = () => {
     .catch((error) => {
       console.log(error);
     });
+  store.setIsLoading(store.isLoading, false);
 };
 
 const addToCart = () => {
@@ -59,7 +63,16 @@ const addToCart = () => {
     product: product.value,
     quantity: quantity.value,
   };
-  store.addToCart(store.cart,item);
+  store.addToCart(store.cart, item);
+
+  toast({
+    message: "The product was added to the cart",
+    type: "is-success",
+    dismissible: true,
+    pauseOnHover: true,
+    duration: 2000,
+    position: "bottom-right",
+  });
 };
 
 onMounted(() => {

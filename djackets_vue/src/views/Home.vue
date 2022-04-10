@@ -39,16 +39,23 @@
 <script setup>
 import http from "../utils/http";
 import { ref, onMounted } from "vue";
+import { useStore } from "../store";
+
+const store = useStore()
 
 const latestProducts = ref([]);
 
-const getLatestProducts = () =>
-  http
+const getLatestProducts = async() =>{
+  await http
     .get("/v1/latest-products/")
     .then((response) => {
       latestProducts.value = response.data;
     })
-    .catch((error) => console.log(error));
+    .catch((error) => console.log(error))
+
+    store.setIsLoading(store.isLoading, false)
+  
+    };
 
 onMounted(() => {
   getLatestProducts();
