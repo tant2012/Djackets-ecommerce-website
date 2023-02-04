@@ -41,7 +41,7 @@ const performSearch = async () => {
 }
 
 onMounted(() => {
-  document.title = "Search | Djackets";
+  document.title = "Search | TGHomie";
 
   let uri = window.location.search.substring(1);
   let params = new URLSearchParams(uri);

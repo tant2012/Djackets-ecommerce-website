@@ -165,7 +165,7 @@ const buyerDetails = reactive({
 const cart = ref({ items: [] });
 
 onMounted(() => {
-  document.title = "Checkout | Djackets";
+  document.title = "Checkout | TGHomie";
 
   cart.value = store.cart;
 

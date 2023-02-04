@@ -22,7 +22,7 @@
             </div>
           </div>
           <div class="field">
-            <label>Confirm Passworde</label>
+            <label>Confirm Password</label>
             <div class="control">
               <input
                 type="password"

@@ -45,7 +45,6 @@
 </template>
 
 <script setup>
-import http from "@/utils/http";
 import CartItem from "@/components/CartItem";
 import { ref, onMounted, computed } from "vue";
 import { useStore } from "../store";

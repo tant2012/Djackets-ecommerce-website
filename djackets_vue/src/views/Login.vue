@@ -88,6 +88,6 @@ const submitForm = async () => {
 };
 
 onMounted(() => {
-  document.title = "Log in | Djackets";
+  document.title = "Log in | TGHomie";
 });
 </script>

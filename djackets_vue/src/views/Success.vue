@@ -17,6 +17,6 @@
 import { onMounted } from "vue";
 
 onMounted(() => {
-  document.title = "PaymentDone | Djackets";
+  document.title = "PaymentDone | TGHomie";
 });
 </script>

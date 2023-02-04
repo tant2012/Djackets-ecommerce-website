@@ -49,7 +49,7 @@ const getProducts = async () => {
     .then((response) => {
       product.value = response.data;
 
-      document.title = product.value.name + ' | Djackets'
+      document.title = product.value.name + ' | TGHomie'
     })
     .catch((error) => {
       console.log(error);

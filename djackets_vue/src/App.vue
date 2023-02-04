@@ -1,9 +1,9 @@
 <template>
   <div id="wrapper">
-    <nav class="navbar is-dark">
+    <nav class="navbar is-black">
       <div class="navbar-brand">
         <router-link to="/" class="navbar-item">
-          <strong>Djackets</strong></router-link
+          <strong>TGHomie</strong></router-link
         >
 
         <a
@@ -47,8 +47,11 @@
           </div>
         </div>
         <div class="navbar-end">
-          <router-link to="/summer" class="navbar-item">Summer</router-link>
-          <router-link to="/winter" class="navbar-item">Winter</router-link>
+          <router-link to="/games" class="navbar-item">Games</router-link>
+          <router-link to="/productivity" class="navbar-item">Productivity</router-link>
+          <router-link to="/health-and-fitness" class="navbar-item">Health and Fitness</router-link>
+          <router-link to="/education" class="navbar-item">Education</router-link>
+          <router-link to="/kids" class="navbar-item">Kids</router-link>
 
           <div class="navbar-item">
             <div class="buttons">
@@ -85,7 +88,7 @@
     </section>
 
     <footer class="footer">
-      <p class="has-text-centered">Copyright (c) 2021</p>
+      <p class="has-text-centered">Copyright ©️2022 TGHomie Inc. All right reserved. </p>
     </footer>
   </div>
 </template>

@@ -51,7 +51,7 @@ const getMyOrders = async () => {
 };
 
 onMounted(() => {
-  document.title = "My account | Djackets";
+  document.title = "My account | TGHomie";
 
   getMyOrders();
 });

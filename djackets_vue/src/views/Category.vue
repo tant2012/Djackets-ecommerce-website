@@ -34,7 +34,7 @@ const getCategory = async () => {
     .then((response) => {
       category.value = response.data;
 
-      document.title = category.value.name + " | Djackets";
+      document.title = category.value.name + " | TGHomie";
     })
     .catch((error) => {
       console.log(error);
